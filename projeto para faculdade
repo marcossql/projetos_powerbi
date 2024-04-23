@@ -1,0 +1,73 @@
+# projetos_powerbi
+Repositório criado apenas com o objetivo de mostrar meus projetos pessoais de relatórios em Power BI
+
+** PROJETO PARA UMA FACULDADE FICTICIA **
+https://app.powerbi.com/view?r=eyJrIjoiMTM5ZjA1YzgtZmEyNi00ODY1LTgyNWMtMzAwYjI1NGU3MTQ1IiwidCI6IjNjMDJlMzFhLThmODctNGI5MC04ZDljLTg0Njg0NjVmYzJjMyJ9&pageName=ReportSection
+
+MEDIDAS USADAS NESTE PROJETO:
+
+// FATURAMENTO:
+FAT = CALCULATE(SUM(F_BASE[Mensalidade])
+; FILTER(dim_situacao ; dim_situacao[Situação] = "PAGO"))
+
+// % NAO PAGO E PAGO
+% NAO PAGO = FORMAT(DIVIDE([TT NAO PAGO] ; [TT MATRICULAS]) ; "PERCENT")
+
+% PAGO = FORMAT(DIVIDE([TT PAGO] ; [TT MATRICULAS]) ; "PERCENT")
+
+// % TOTAL
+% PORC TT = 
+
+VAR ValorFiltro = CALCULATE(SUM(F_BASE[Mensalidade]) ; ALL(F_BASE))
+VAR ValorVenda = [FAT]
+
+RETURN
+DIVIDE(ValorVenda ; ValorFiltro)
+
+// FATURAMENTO NEGATIVO
+FAT INADIMPLENTES = CALCULATE(SUM(F_BASE[Mensalidade])
+                    ;FILTER(dim_situacao ; dim_situacao[Situação] = "NÃO PAGO"))
+
+// FATURAMENTO REAL
+FAT REAL = FORMAT([FAT] ;"R$\ #,0.00" ; "PT-BR")
+
+// MEDIA IDADE
+MEDIA DE IDADE = 
+
+VAR MEDIA_AL = AVERAGE(F_BASE[IDADE])  // EXPRESSAO QUE SERÁ ATRIBUIDA PARA A VARIAVEL
+
+RETURN
+MEDIA_AL
+
+// TOTAL DEVEDORES
+TOTAL INADIMP = CALCULATE(COUNTA(F_BASE[Mensalidade])
+                    ;FILTER(dim_situacao ; dim_situacao[Situação] = "NÃO PAGO"))
+
+// TOTAL ALUNOS
+TT ALUNOS = COUNTA(dim_alunos[Matricula])
+
+// TOTAL DE MATRICULAS
+TT MATRICULAS = 
+
+VAR MTL = COUNTA(F_BASE[Matricula])
+
+RETURN
+MTL
+
+// TOTAL DEVEDORES
+TT NAO PAGO = 
+ 
+ VAR DEVEDOR = CALCULATE(COUNTA(F_BASE[Mensalidade])
+    ;FILTER(dim_situacao ; dim_situacao[Situação] = "NÃO PAGO"))
+
+    RETURN
+    DEVEDOR
+
+// TOTAL PAGO
+TT PAGO = 
+
+VAR TT_PAGO = CALCULATE(COUNTA(F_BASE[Mensalidade])
+    ;FILTER(dim_situacao ; dim_situacao[Situação] = "PAGO"))
+
+    RETURN
+    TT_PAGO
