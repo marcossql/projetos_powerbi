@@ -1,0 +1,36 @@
+-- Neste relatório eu usei valores e nomes ficticios para testar uma função usando senha.
+
+Usuarios e senhas para acessar os relatórios:
+Vanessa Silva - 566
+Magno Marques - 577
+Geral - 599
+
+Relatorio publicado:
+https://app.powerbi.com/view?r=eyJrIjoiYmI5ODllNjYtMGRmMi00NTI0LWE1NDktMDIyNGUyYzY0ZTMxIiwidCI6IjNjMDJlMzFhLThmODctNGI5MC04ZDljLTg0Njg0NjVmYzJjMyJ9&pageName=ReportSection
+
+Link do arquivo .pbix
+https://drive.google.com/drive/folders/1juh91NSawlJmLWYvJRq8xLsYXYHyKxXo?usp=drive_link
+
+MEDIDAS USADAS:
+CHECK = 
+
+VAR CHECK2 =
+IF(
+    SELECTEDVALUE(tb_senha[LOGIN]) = "Vanessa Silva"
+    && 'Parâmetro'[Valor Parâmetro] = 566
+    ; "RELATORIO GOOGLE"
+
+;IF(
+    SELECTEDVALUE(tb_senha[LOGIN]) = "Magno Marques"
+    && 'Parâmetro'[Valor Parâmetro] = 577
+    ; "RELATORIO INSTA"    
+
+
+;IF(
+    SELECTEDVALUE(tb_senha[LOGIN]) = "Geral"
+    && 'Parâmetro'[Valor Parâmetro] = 599
+    ; "RELATORIO INSTA"
+    ; "SENHA INCORRETA")))
+
+RETURN
+CHECK2    
